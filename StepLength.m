@@ -2,7 +2,7 @@ function [foot_cycle,hand_cycle,step_length] = StepLength(raw,strat_line,end_lin
 
 right_foot_x   = raw(strat_line:end_line,M.rfoot_colum(1));%46 26/27
 right_foot_y   = raw(strat_line:end_line,M.rfoot_colum(2)); %47
-right_hand_x   = raw(strat_line:end_line,M.rhand_colum(2));%22
+right_hand_x   = raw(strat_line:end_line,M.rhand_colum(1));%22
 right_hand_y   = raw(strat_line:end_line,M.rhand_colum(2));%23
 
 % right foot
