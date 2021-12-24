@@ -3,14 +3,8 @@ function [tail] = TailPosition(raw,strat_line,end_line,filename)
 % tail = zeros(end_line-strat_line+1,10);
 tail = [raw(strat_line:end_line,28:29),raw(strat_line:end_line,49:50),raw(strat_line:end_line,52:53),...
     raw(strat_line:end_line,55:56),raw(strat_line:end_line,58:59)];
-% tail_x =  zeros(end_line-strat_line+1,5);
-% tail_y =  zeros(end_line-strat_line+1,5);
-
 tail_x = [tail(:,1),tail(:,3),tail(:,5),tail(:,7),tail(:,9)];
 tail_y = [tail(:,2),tail(:,4),tail(:,6),tail(:,8),tail(:,10)];
-
-
-
 
 figure
 subplot(221)
@@ -51,10 +45,6 @@ set(gca,'YDir','reverse')
 xlabel('X coordinate in pixles')
 ylabel('Y coordinate in pixles')
 axis([150 450  180 380])
-
-
-
-
 subplot(224)
 scatter(tail(:,1),tail(:,2),4) %tail(:,3),tail(:,4),tail(:,5),tail(:,6),tail(:,7),tail(:,8),tail(:,9),tail(:,10));
 hold on
@@ -67,7 +57,7 @@ xlabel('X coordinate in pixles')
 ylabel('Y coordinate in pixles')
 axis([150 450  180 380])
 box on
-% title('Monkey 159 tail position,head to right')
-% hold off
+title('Monkey 159 tail position,head to right');
+hold off
 end
 

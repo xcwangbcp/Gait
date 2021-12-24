@@ -1,4 +1,4 @@
-function [back_heigth] = BackHeigth(raw,start_line,end_line,filename)
+function [back_heigth] = BackHeigth(raw,start_line,end_line,filename,M)
 % neck some times is difficult to track by deeplabcut, when we see some
 % likely hood is lower than 0.9, these first several lines is to only keep
 % the data which is more than 0.9.

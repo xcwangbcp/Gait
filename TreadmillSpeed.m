@@ -1,8 +1,8 @@
 function [Vt] = TreadmillSpeed(raw,strat_line,end_line,Fs,filename)
 % right_foot_x   = raw(strat_line:end_line,46);
 right_foot_x   = raw(strat_line:end_line,26);
-[tx,X] = smooth_not_detrend(right_foot_x ,Fs);
-TD = [tx;X.'];
+[tx,X]         = smooth_not_detrend(right_foot_x ,Fs);
+TD             = [tx;X.'];
 %disp(TD)
 
 figure
@@ -100,10 +100,7 @@ for i = 1:times
 end        
 hold off       
         
-Vt = mean(coef(:));
-
-
-   
+Vt = mean(coef(:));   
 end
 
 

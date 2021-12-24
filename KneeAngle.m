@@ -38,10 +38,6 @@ axis([200 400 200 400])
 
 figure
 subplot(311)
-% bar((1:length(angle))/30,angle)
-% ylabel('Degree ')
-% xlabel('Time(Seconds)')
-
 [tx,X,f,P1] = cycle_search(angle ,Fs);
 plot(f(2:end),P1(2:end))
 % title('Monkey 159 right foot X-dimension Spectrum of S(t)')
@@ -61,15 +57,11 @@ ylabel('Degree ')
 xlabel('Time(Seconds)')
 title('Right Thigh Angel')
 title(['Monkey', filename, ' Right Leg Knee Angle'])
-
-% [tmax,vmax,tmin,vmin] = extrem_num(t,angle);
 [knee_anglemax,tmax] = findpeaks(angle,t,'MinPeakDistance',0.7);
 hold on
 plot(tmax, knee_anglemax, 'r+');
 
 subplot(313)
-% histogram(angle)
-% title('Histogram')
 dgree_thigh2Hor = atand((knee(:,2)-thigh(:,2))./(knee(:,1)-thigh(:,1)));
 plot(t,dgree_thigh2Hor)
 reverse = max(dgree_thigh2Hor)-dgree_thigh2Hor;
