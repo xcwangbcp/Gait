@@ -1,10 +1,10 @@
 close all
 clear 
-M.Fs = 30;
+Fs = 30;
 % filename_raw    = 'D:\Code\Treadmill\ResultClean\data_13_0524.csv';
 % raw             = table2array(readtable(filename_raw));
-filename       = uigetfile('*.csv','Pick a csv file to load in ');
-[raw,Txt,RAW]  = xlsread(filename);
+filename       = uigetfile('*.');
+[raw,Txt,RAW]  = xlsread('35-11-04.csv');
 % interest_columns = ['head_x';'head_y';'neck_x';'neck_y';'back_x';'back_y';'right_hand_x';...
 %     'right_hand_y';'right_thigh_x';'right_knee_x';'right_knee_y';'right_foot_x';'right_foot_y';...
 % 'tail_x';'tail_y';'neck_p';'tail_p';'back_p'];
@@ -16,7 +16,7 @@ M.rhand_colum  = findcolum(Txt,'right_hand_x','right_hand_y');
 M.rfoot_colum  = findcolum(Txt,'right_foot_x','right_foot_y');
 M.thigh_colum  = findcolum(Txt,'right_thigh_x','right_thigh_y');
 M.knee_colum   = findcolum(Txt,'right_knee_x','right_knee_y');
-M.backH_likelyh= findcolum(Txt,'neck_p','back_p','tail_p');
+M.backH_likelyh = findcolum(Txt,'neck_p','back_p','tail_p');
 % raw = table2array(raw);
 %     m s m s
 % raw = cell2array(raw)
@@ -30,25 +30,25 @@ end_time_s   = time(4);
 start_line = 30*(60*start_time_m + start_time_s);
 end_line   = 30*(60*end_time_m + end_time_s)-1;
 str        = [num2str(start_time_m),':',num2str(start_time_s),' to ',num2str(end_time_m),':',num2str(end_time_s)];
-filename   = [filename(1:end-4),'-',str];
+filename   = [filename_raw(35:end-8),'-',str];
 %1. step length start
-[beta,phi] = GaitFilter(raw,start_line,end_line,M);
-[Fx]       = StepLength(raw,start_line,end_line,filename,M);
+[beta,phi] = GaitFilter(raw,start_line,end_line,Fs,M);
+%[foot_cycle,hand_cycle,step_length] = StepLength(raw,start_line,end_line,Fs,filename);
+[Fx] = StepLength(raw,start_line,end_line,Fs,filename,M);
 
 % 2. knee angle
 [knee_anglemax,knee_cycle] = KneeAngle(raw,start_line,end_line,filename,M);
-knee_anglemax              = [num2str(round(mean(knee_anglemax),2)),'±',num2str(round(std(knee_anglemax),2))]
+knee_anglemax = [num2str(round(mean(knee_anglemax),2)),'±',num2str(round(std(knee_anglemax),2))]
 % 
 % %3. back heigh
 [back_heigth]  = BackHeigth(raw,start_line,end_line,filename,M);
-back_heigth    = [num2str(round(mean(back_heigth),2)),'±',num2str(round(std(back_heigth),2))]
+back_heigth = [num2str(round(mean(back_heigth),2)),'±',num2str(round(std(back_heigth),2))]
 % 
 % %4. tail position
 % [tail] = TailPosition(raw,start_line,end_line,filename);
-
 %5. treadmill speed
-[Vt] = TreadmillSpeed(raw,start_line,end_line,M);
-Vt   = Vt/400;
+[Vt] = TreadmillSpeed(raw,start_line,end_line,Fs,filename);
+Vt = Vt/400;
 
 
 % % data.step_length     = step_length;
@@ -67,6 +67,7 @@ Vt   = Vt/400;
 %    s = filename(1:9);
 %    save(s,'-struct','data');
 % end 
+% %
 disp('game over')
 
 function [column]  = findcolum(Txt,A,B,C)

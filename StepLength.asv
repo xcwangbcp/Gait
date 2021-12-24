@@ -12,6 +12,7 @@ figure
 
 subplot(2,2,1)
 plot(tx,X ,'b');
+% title(['Monkey', filename, ' right foot X-dimension'])
 xlabel('t(s)')
 ylabel('X(pixle)')
 
@@ -20,6 +21,7 @@ ylabel('X(pixle)')
 subplot(2,2,2)
 % plot(f(2:200),P1(2:200),'r','marker','*') 
 plot(f(2:end),P1(2:end))
+% title('Monkey 159 right foot X-dimension Spectrum of S(t)')
 xlabel('f (Hz)')
 ylabel('|P1(f)|')
 Fx=find(P1==max(P1(2:end)));
@@ -34,7 +36,7 @@ text(location_x ,location_y,['[',num2str(roundn(location_x,-2)),' , ',num2str(ro
 % [tmax,vmax,tmin,vmin] = extrem_num(f,P1);
 [ty,Y,f,Py] = cycle_search(right_foot_y,M.Fs);
 subplot(2,2,3)
-plot(ty,Y,'b');
+plot(ty,right_foot_y,'b');
 xlabel('t(s)')
 ylabel('Y(pixle)')
 
@@ -59,19 +61,30 @@ v(1) = -1; v(2)=15;
 set(hand_t,'Position',v);
 
 
-[tx,HX,f,P1] = cycle_search(right_hand_x ,M.Fs);
-% gtext(['Monkey', filename, '   right foot motion X&Y'])you can set the
-% text to any position you want
+[tx,X,f,P1] = cycle_search(right_hand_x ,M.Fs);
+% gtext(['Monkey', filename, '   right foot motion X&Y'])
+
+
 
 figure
+% text(['Monkey', filename, ' right hand X-dimension move'])
+
 subplot(2,2,1)
-plot(tx,HX,'b');
+plot(tx,right_hand_x,'b');
+title(['Monkey', filename, ' right hand X-dimension'])
 xlabel('t(s)')
 ylabel('X(pixle)')
+ hand_t =title(['Monkey', filename, '   right hand motion X&Y']);
+%  hand_t = title(strTitle);
+v = get(hand_t,'Position');
+v(1) = 10; v(2)=75;        
+set(hand_t,'Position',v);
 
 
 subplot(2,2,2)
+% plot(f(2:200),P1(2:200),'r','marker','*') 
 plot(f(2:end),P1(2:end))
+% title('Monkey 159 right foot X-dimension Spectrum of S(t)')
 xlabel('f (Hz)')
 ylabel('|P1(f)|')
 Fx=find(P1==max(P1(2:end)));
@@ -81,9 +94,10 @@ location_x = f(Fx)*2; location_y = P1(find(f==location_x));
 text(location_x ,location_y,['[',num2str(roundn(location_x,-2)),' , ',num2str(roundn(location_y,-2)),']']);
 
 
-[ty,HY,f,Py] = cycle_search(right_hand_y,M.Fs);
+
+[ty,Y,f,Py] = cycle_search(right_hand_y,M.Fs);
 subplot(2,2,3)
-plot(ty,HY,'b');
+plot(ty,right_hand_y,'b');
 xlabel('t(s)')
 ylabel('Y(pixle)')
 
@@ -100,11 +114,6 @@ text(f(F1),max(Py(2:end)),['[',num2str(roundn(f(F1),-2)),' , ',num2str(roundn(ma
 location_x = f(F1)*2; location_y = Py(find(f==location_x));
 text(location_x ,location_y,['[',num2str(roundn(location_x,-2)),' , ',num2str(roundn(location_y,-2)),']']);
 hold off
-% get the title center in the figure
-hand_t = title(['Monkey', filename, '   right hand motion X&Y']);
-v      = get(hand_t,'Position');
-v(1) = 1; v(2)=11.5;         
-set(hand_t,'Position',v);
 
 end
 
